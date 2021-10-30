@@ -22,10 +22,10 @@ public class BlogController {
         return ResponseEntity.ok("get by id");
     }
 
-//    @PostMapping
-//    public ResponseEntity<String> createMovie(@RequestBody String id){
-//        return new ResponseEntity<>("id" + id + "is created", HttpStatus.CREATED);
-//    }
+    @PostMapping("/{id}")
+    public ResponseEntity<String> createMovie(@RequestBody String id){
+        return new ResponseEntity<>("id" + id + "is created", HttpStatus.CREATED);
+    }
 
     /* TODO */
     @PutMapping("/{id}")

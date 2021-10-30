@@ -4,6 +4,8 @@ import javax.validation.constraints.*
 
 data class CreateBlogRequest(
 
+        //TODO
+
         @field:NotBlank
         val id: String,
         @field:NotBlank(message = "isim boş bırakılamaz")
