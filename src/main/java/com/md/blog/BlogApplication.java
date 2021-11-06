@@ -14,4 +14,5 @@ public class BlogApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("deneme");
     }
+
 }

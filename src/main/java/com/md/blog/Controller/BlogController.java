@@ -1,7 +1,7 @@
 package com.md.blog.Controller;
 
-import com.md.blog.Dto.CreateBlogDto;
-import com.md.blog.Dto.CreateBlogRequest;
+//import com.md.blog.Dto.CreateBlogDto;
+//import com.md.blog.Dto.CreateBlogRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,10 +38,13 @@ public class BlogController {
         return ResponseEntity.ok("blog id : " + id + " deleted");
     }
 
-    @PostMapping
-    public ResponseEntity<CreateBlogDto> createBlog(@Valid @RequestBody CreateBlogRequest createBlogRequest){
-        int birthday = 2021 - createBlogRequest.getAge();
-        CreateBlogDto createBlogDto = new CreateBlogDto(createBlogRequest.getName(),birthday);
-        return new ResponseEntity<>(createBlogDto,HttpStatus.CREATED);
-    }
+//    @PostMapping("/aaa")
+//    public ResponseEntity<CreateBlogDto> createBlog(@Valid @RequestBody CreateBlogRequest createBlogRequest){
+//       String author = createBlogRequest.getAuthor();
+//       String body = createBlogRequest.getBody();
+//
+//
+//        CreateBlogDto createBlogDto = new CreateBlogDto(createBlogRequest.getTitle(),body,author);
+//        return new ResponseEntity<>(createBlogDto,HttpStatus.CREATED);
+//    }
 }
