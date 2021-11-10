@@ -1,6 +1,7 @@
-package com.md.blog.Model
+package com.md.blog.model
 
 import org.hibernate.annotations.GenericGenerator
+import java.time.LocalDateTime
 import javax.persistence.Entity
 import javax.persistence.*
 
@@ -13,6 +14,8 @@ data class User @JvmOverloads constructor(
         val uid: String? = "",
         val username: String= "",
         val email: String="",
+        val creationDate: LocalDateTime,
+
 
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
         val post: Set<Post> = HashSet(),
@@ -21,7 +24,7 @@ data class User @JvmOverloads constructor(
         val comment: List<Comment>,
 
 
-) {
+        ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

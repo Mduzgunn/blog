@@ -1,6 +1,7 @@
-package com.md.blog.Model
+package com.md.blog.model
 
 import org.hibernate.annotations.GenericGenerator
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -14,6 +15,8 @@ data class Post @JvmOverloads constructor(
         val title: String,
         val body: String,
         val postTags: PostTags,
+
+        val creationDate: LocalDateTime,
 
         @ManyToOne(cascade = [CascadeType.ALL])
         @JoinColumn(name = "user_id", referencedColumnName = "uid")
@@ -33,6 +36,7 @@ data class Post @JvmOverloads constructor(
         if (title != other.title) return false
         if (body != other.body) return false
         if (postTags != other.postTags) return false
+        if (creationDate != other.creationDate) return false
         if (user != other.user) return false
         if (comment != other.comment) return false
 
@@ -44,6 +48,7 @@ data class Post @JvmOverloads constructor(
         result = 31 * result + title.hashCode()
         result = 31 * result + body.hashCode()
         result = 31 * result + postTags.hashCode()
+        result = 31 * result + creationDate.hashCode()
         result = 31 * result + user.hashCode()
         result = 31 * result + comment.hashCode()
         return result

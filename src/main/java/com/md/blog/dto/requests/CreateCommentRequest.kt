@@ -1,10 +1,10 @@
-package com.md.blog.Dto.requests
+package com.md.blog.dto.requests
 
 import javax.validation.constraints.NotEmpty
 
 data class CreateCommentRequest (
     //    * commments----
-//    * cid,author,uid,pid,date_created
+
     @field:NotEmpty
     val uid: String,
 

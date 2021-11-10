@@ -1,4 +1,4 @@
-package com.md.blog.Exception;
+package com.md.blog.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

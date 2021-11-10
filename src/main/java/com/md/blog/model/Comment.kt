@@ -1,6 +1,7 @@
-package com.md.blog.Model
+package com.md.blog.model
 
 import org.hibernate.annotations.GenericGenerator
+import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
@@ -10,8 +11,10 @@ data class Comment @JvmOverloads constructor(
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         val cid: String? = "",
         val comment: String,
+        val creationDate: LocalDateTime,
 
-       @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+
+        @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
        @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
@@ -23,7 +26,7 @@ data class Comment @JvmOverloads constructor(
 
 
 
-) {
+        ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

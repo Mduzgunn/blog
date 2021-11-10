@@ -1,12 +1,11 @@
-package com.md.blog.Controller;
+package com.md.blog.controller;
 
-//import com.md.blog.Dto.CreateBlogDto;
-//import com.md.blog.Dto.CreateBlogRequest;
+//import com.md.blog.dto.CreateBlogDto;
+//import com.md.blog.dto.CreateBlogRequest;
+import com.md.blog.dto.PostDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("v1/blog")

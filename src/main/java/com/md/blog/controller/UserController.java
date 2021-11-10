@@ -1,8 +1,7 @@
-package com.md.blog.Controller;
+package com.md.blog.controller;
 
-import com.md.blog.Model.User;
-import com.md.blog.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.md.blog.model.User;
+import com.md.blog.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

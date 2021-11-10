@@ -1,7 +1,7 @@
-package com.md.blog.Service;
+package com.md.blog.service;
 
-import com.md.blog.Model.Comment;
-import com.md.blog.Repo.CommentRepository;
+import com.md.blog.model.Comment;
+import com.md.blog.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +13,8 @@ public class CommentService {
         this.commentRepository=commentRepository;
     }
 
-    public List<Comment> getAllCommentList(){
-        return commentRepository.findAll();
+    protected Comment getCommentById(String id){
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("comment not found"));
     }
 }
