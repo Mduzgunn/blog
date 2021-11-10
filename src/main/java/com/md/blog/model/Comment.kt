@@ -22,11 +22,14 @@ data class Comment @JvmOverloads constructor(
         @JoinColumn(name = "post_id", referencedColumnName = "pid")
         val post: Post,
 
-
-
-
-
         ) {
+    constructor(comment: String,user: User,post: Post): this (
+            "",
+            comment=comment,
+            creationDate=LocalDateTime.now(),
+            user = user,
+            post = post
+            )
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

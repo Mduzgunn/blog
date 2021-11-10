@@ -12,22 +12,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class PostDtoConverter {
+public class UserDtoConverter {
 
-    public PostDto convertToPostDto(Post from){
-        return new PostDto(
-                from.getPid(),
-                from.getTitle(),
-                from.getBody(),
+    public UserDto convertToUserDto(User from){
+        return new UserDto(
+                from.getUid(),
+                from.getUsername(),
+                from.getEmail(),
                 from.getCreationDate(),
-                from.getPostTags(),
-             new UserDto(from.getUser().getUid(),
-                     from.getUser().getUsername(),
-                     from.getUser().getEmail(),
-                     from.getUser().getCreationDate()
-                     ),
+                getPostList(from.getPost()).stream().collect(Collectors.toList()),
                 getCommentList(from.getComment()).stream().collect(Collectors.toList())
         );
+    }
+
+    public List<PostDto> getPostList(List<Post> posts){
+        return posts.stream().map(
+                p -> new PostDto(
+                        p.getPid(),
+                        p.getTitle(),
+                        p.getBody(),
+                        p.getCreationDate(),
+                        p.getPostTags()
+                )
+        ).collect(Collectors.toList());
     }
 
     public List<CommentDto> getCommentList(List<Comment> comments){
@@ -39,5 +46,4 @@ public class PostDtoConverter {
                 )
         ).collect(Collectors.toList());
     }
-
 }

@@ -24,10 +24,5 @@ public class CommentDtoConverter {
         );
     }
 
-//    public List<CommentDto> convertToCommentDtoList(List<Comment> from){
-//        return from.stream().map(this::convertToCommentDto).collect(Collectors.toList());
-//    }
-
-
-
 }
+    

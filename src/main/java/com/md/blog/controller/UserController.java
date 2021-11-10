@@ -1,10 +1,13 @@
 package com.md.blog.controller;
 
+import com.md.blog.dto.UserDto;
+import com.md.blog.dto.requests.CreateUserRequest;
 import com.md.blog.model.User;
 import com.md.blog.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,13 +19,11 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/aa")
-    public ResponseEntity<List<User>> getAllUsers(){
+@GetMapping()
+    public ResponseEntity<List<UserDto>> getAllUsers(){
         return ResponseEntity.ok(userService.getAllUsers());
-    }
-    @PostMapping("/aa")
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
-    }
+}
+
+
 
 }

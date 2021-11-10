@@ -1,6 +1,7 @@
 package com.md.blog.controller;
 
 
+import com.md.blog.dto.CommentDto;
 import com.md.blog.model.Comment;
 import com.md.blog.service.CommentService;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +18,6 @@ public class CommentController {
     public CommentController(CommentService commentService){
         this.commentService=commentService;
     }
-//    @GetMapping
-//    public ResponseEntity<List<CommentDto>> getAllComments(){
-//        return ResponseEntity.ok(commentService.getAllCommentList());
-//    }
-@GetMapping
-public ResponseEntity<List<Comment>> getAllComments(){
-    return ResponseEntity.ok(commentService.getAllCommentList());
-}
 
 
 }

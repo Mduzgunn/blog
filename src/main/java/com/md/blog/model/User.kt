@@ -18,7 +18,7 @@ data class User @JvmOverloads constructor(
 
 
         @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-        val post: Set<Post> = HashSet(),
+        val post: List<Post>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") //
         val comment: List<Comment>,

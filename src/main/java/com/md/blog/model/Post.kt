@@ -1,5 +1,6 @@
 package com.md.blog.model
 
+import org.hibernate.Hibernate
 import org.hibernate.annotations.GenericGenerator
 import java.time.LocalDateTime
 import javax.persistence.*
@@ -22,10 +23,20 @@ data class Post @JvmOverloads constructor(
         @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
-        @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = [CascadeType.ALL]) //
+        @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = [CascadeType.ALL]) //
         val comment: List<Comment>,
 
         ) {
+    constructor(title: String, body: String, postTags: PostTags, user: User) : this(
+            "",
+            title = title,
+            body = body,
+            postTags = postTags,
+            creationDate = LocalDateTime.now(),
+            user = user,
+            comment= listOf()
+    )
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -53,6 +64,8 @@ data class Post @JvmOverloads constructor(
         result = 31 * result + comment.hashCode()
         return result
     }
+
+
 }
 
 enum class PostTags {

@@ -1,6 +1,8 @@
 package com.md.blog.dto.requests
 
 import com.md.blog.model.PostTags
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.validation.constraints.*
 
 data class CreatePostRequest(
@@ -12,7 +14,7 @@ data class CreatePostRequest(
         @field:NotBlank(message = "içerik boş bırakılamaz")
         val body: String,
 
-        @field:NotBlank(message = "lütfen bir tag seçin")
+        @field:Enumerated(EnumType.STRING)
         val tags: PostTags,
 
         @field:NotBlank(message = "yazar boş bırakılamaz")
