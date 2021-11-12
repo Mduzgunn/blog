@@ -23,11 +23,13 @@ data class Post @JvmOverloads constructor(
         @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
-        @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = [CascadeType.ALL]) //
+        @OneToMany(mappedBy = "post", fetch = FetchType.LAZY) //
         val comment: List<Comment>,
 
+
         ) {
-    constructor(title: String, body: String, postTags: PostTags, user: User) : this(
+
+    constructor(title: String, body: String, postTags: PostTags,user: User) : this(
             "",
             title = title,
             body = body,
@@ -36,6 +38,7 @@ data class Post @JvmOverloads constructor(
             user = user,
             comment= listOf()
     )
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -8,6 +8,7 @@ import com.md.blog.model.Post;
 import com.md.blog.model.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +21,8 @@ public class UserDtoConverter {
                 from.getUsername(),
                 from.getEmail(),
                 from.getCreationDate(),
-                getPostList(from.getPost()).stream().collect(Collectors.toList()),
-                getCommentList(from.getComment()).stream().collect(Collectors.toList())
+                new ArrayList<>(getPostList(from.getPost())),
+                new ArrayList<>(getCommentList(from.getComment()))
         );
     }
 
@@ -31,8 +32,9 @@ public class UserDtoConverter {
                         p.getPid(),
                         p.getTitle(),
                         p.getBody(),
-                        p.getCreationDate(),
-                        p.getPostTags()
+                        p.getPostTags(),
+                        p.getCreationDate()
+
                 )
         ).collect(Collectors.toList());
     }

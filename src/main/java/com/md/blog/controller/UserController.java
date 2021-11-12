@@ -24,6 +24,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
 }
 
-
+@PostMapping
+public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserRequest createUserRequest){
+        return ResponseEntity.ok(userService.createUser(createUserRequest));
+}
 
 }

@@ -23,7 +23,7 @@ data class Comment @JvmOverloads constructor(
         val post: Post,
 
         ) {
-    constructor(comment: String,user: User,post: Post): this (
+    constructor(comment:String, user:User, post:Post): this (
             "",
             comment=comment,
             creationDate=LocalDateTime.now(),

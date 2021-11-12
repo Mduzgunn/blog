@@ -17,7 +17,7 @@ data class User @JvmOverloads constructor(
         val creationDate: LocalDateTime,
 
 
-        @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+        @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
         val post: List<Post>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") //
@@ -25,6 +25,14 @@ data class User @JvmOverloads constructor(
 
 
         ) {
+    constructor(username: String,email: String):this(
+            "",
+            username=username,
+            email = email,
+            creationDate = LocalDateTime.now(),
+            post = listOf(),
+            comment= listOf()
+    )
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

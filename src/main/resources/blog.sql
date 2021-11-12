@@ -55,3 +55,13 @@ FROM posts;
 SELECT cid, comment, author, user_id, post_id, date_created
 FROM comments;
 
+
+
+#ÖDEV 3 blog ve bloglara ait yorumları çekecek sql sorgusu
+SELECT p.*, c.* FROM post p
+                         LEFT JOIN comment c ON c.post_id = p.pid;
+
+# ek olarak bu verilerle beraber user çekme komutu
+SELECT p.*, c.*, u.* FROM post p
+                              LEFT JOIN comment c ON c.post_id = p.pid
+                              LEFT JOIN user u ON u.uid = p.user_id

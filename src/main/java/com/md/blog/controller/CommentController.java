@@ -2,13 +2,13 @@ package com.md.blog.controller;
 
 
 import com.md.blog.dto.CommentDto;
+import com.md.blog.dto.requests.CreateCommentRequest;
 import com.md.blog.model.Comment;
 import com.md.blog.service.CommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,5 +19,14 @@ public class CommentController {
         this.commentService=commentService;
     }
 
+    @PostMapping
+    public ResponseEntity<CommentDto> createComment(@Valid @RequestBody CreateCommentRequest createCommentRequest){
+        return ResponseEntity.ok(commentService.createComment(createCommentRequest));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CommentDto>> getComments(){
+        return ResponseEntity.ok(commentService.getAllComments());
+    }
 
 }

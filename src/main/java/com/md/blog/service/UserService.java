@@ -1,7 +1,9 @@
 package com.md.blog.service;
 
+import com.md.blog.dto.PostDto;
 import com.md.blog.dto.UserDto;
 import com.md.blog.dto.converter.UserDtoConverter;
+import com.md.blog.dto.requests.CreatePostRequest;
 import com.md.blog.dto.requests.CreateUserRequest;
 import com.md.blog.exception.NotFoundException;
 import com.md.blog.model.Post;
@@ -18,10 +20,22 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserDtoConverter userDtoConverter;
 
+
     public UserService(UserRepository userRepository,
-                       UserDtoConverter userDtoConverter){
+                       UserDtoConverter userDtoConverter
+                       ){
         this.userRepository=userRepository;
         this.userDtoConverter=userDtoConverter;
+
+    }
+
+    public UserDto createUser(CreateUserRequest createUserRequest){
+
+        User user = new User(
+                createUserRequest.getUsername(),
+                createUserRequest.getEmail()
+        );
+        return userDtoConverter.convertToUserDto(userRepository.save(user));
     }
 
    public User getUserById(String id){

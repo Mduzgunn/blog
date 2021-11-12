@@ -10,6 +10,7 @@ import com.md.blog.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -28,20 +29,11 @@ public class CommentService {
         this.postService=postService;
     }
 
-    protected Comment getCommentById(String id){
+    public Comment getCommentById(String id){
         return commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("comment not found"));
     }
 
-//    User user = userService.getUserById(createPostRequest.getAuthor());
-//
-//    Post post = new Post(
-//            createPostRequest.getTitle(),
-//            createPostRequest.getBody(),
-//            createPostRequest.getTags(),
-//            user
-//    );
-//        return postDtoConverter.convertToPostDto(postRepository.save(post));
     public CommentDto createComment(CreateCommentRequest createCommentRequest){
         Post post = postService.getPostById(createCommentRequest.getPid());
         User user = userService.getUserById(createCommentRequest.getUid());
@@ -57,6 +49,10 @@ public class CommentService {
         getCommentById(id);
         commentRepository.deleteById(id);
         return "comment deleted successfully";
+    }
+
+    public List<CommentDto> getAllComments(){
+        return commentRepository.findAll().stream().map(commentDtoConverter::convertToCommentDto).collect(Collectors.toList());
     }
 
 }

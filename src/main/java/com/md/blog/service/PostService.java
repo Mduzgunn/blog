@@ -4,6 +4,7 @@ import com.md.blog.dto.PostDto;
 import com.md.blog.dto.converter.PostDtoConverter;
 import com.md.blog.dto.requests.CreatePostRequest;
 import com.md.blog.exception.NotFoundException;
+import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.User;
 import com.md.blog.repository.PostRepository;
@@ -27,7 +28,7 @@ public class PostService {
     }
 
     public PostDto createPost(CreatePostRequest createPostRequest){
-        User user = userService.getUserById(createPostRequest.getAuthor());
+        User user = userService.getUserById(createPostRequest.getUid());
 
         Post post = new Post(
                 createPostRequest.getTitle(),
