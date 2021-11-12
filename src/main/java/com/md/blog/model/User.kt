@@ -6,6 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.*
 
 @Entity
+@Table(name = "blog_user")
 data class User @JvmOverloads constructor(
         @Id
       //  @Column(name = "uid")
