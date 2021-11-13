@@ -19,14 +19,24 @@ public class UserController {
         this.userService = userService;
     }
 
-@GetMapping()
-    public ResponseEntity<List<UserDto>> getAllUsers(){
-        return ResponseEntity.ok(userService.getAllUsers());
-}
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserByID(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
 
-@PostMapping
-public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserRequest createUserRequest){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.deleteUserById(id));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserRequest createUserRequest) {
         return ResponseEntity.ok(userService.createUser(createUserRequest));
-}
+    }
 
 }

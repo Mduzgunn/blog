@@ -4,7 +4,6 @@ import com.md.blog.dto.PostDto;
 import com.md.blog.dto.converter.PostDtoConverter;
 import com.md.blog.dto.requests.CreatePostRequest;
 import com.md.blog.exception.NotFoundException;
-import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.User;
 import com.md.blog.repository.PostRepository;
@@ -21,35 +20,40 @@ public class PostService {
 
     public PostService(PostRepository postRepository,
                        UserService userService,
-                       PostDtoConverter postDtoConverter){
+                       PostDtoConverter postDtoConverter) {
         this.postRepository = postRepository;
         this.userService = userService;
         this.postDtoConverter = postDtoConverter;
     }
 
-    public PostDto createPost(CreatePostRequest createPostRequest){
-        User user = userService.getUserById(createPostRequest.getUid());
+    protected Post findPostById(String id) {
+        return postRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException("post not found"));
+    }
+
+    public PostDto getPostById(String id) {
+        return postDtoConverter.convertToPostDto(findPostById(id));
+    }
+
+    public PostDto createPost(CreatePostRequest createPostRequest) {
+        User user = userService.findUserById(createPostRequest.getUid());
 
         Post post = new Post(
                 createPostRequest.getTitle(),
                 createPostRequest.getBody(),
                 createPostRequest.getTags(),
                 user
-                );
+        );
         return postDtoConverter.convertToPostDto(postRepository.save(post));
     }
 
-    public Post getPostById(String id){
-        return postRepository.findById(id).orElseThrow(() -> new NotFoundException("post not found"));
+    public List<PostDto> getAllPosts() {
+        return postRepository.findAll().stream().
+                map(postDtoConverter::convertToPostDto).collect(Collectors.toList());
     }
 
-    public List<PostDto> getAllMovies() {
-        return postRepository.findAll()
-                .stream().map(postDtoConverter::convertToPostDto)
-                .collect(Collectors.toList());
-    }
-
-    public String deletePostById(String id){
+    public String deletePostById(String id) {
         getPostById(id);
         postRepository.deleteById(id);
         return "post deleted successfully";

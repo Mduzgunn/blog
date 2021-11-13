@@ -38,22 +38,29 @@ public class UserService {
         return userDtoConverter.convertToUserDto(userRepository.save(user));
     }
 
-   public User getUserById(String id){
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("user not found"));
-   }
 
-   public List<UserDto> getAllUsers(){
-        return userRepository.findAll().stream().
-                map(userDtoConverter::convertToUserDto).collect(Collectors.toList());
-   }
-
-    protected User findByUserId(String id) {
-        return userRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException("User not found"));
+    public UserDto getUserById(String id){
+       return userDtoConverter.convertToUserDto(findUserById(id));
     }
 
+    protected User findUserById(String id) {
+        return userRepository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException("user not found"));
+    }
+
+
+    public List<UserDto> getAllUsers(){
+        return userRepository.findAll().stream().
+                map(userDtoConverter::convertToUserDto).collect(Collectors.toList());
+    }
+
+
+    public String deleteUserById(String id) {
+        getUserById(id);
+        userRepository.deleteById(id);
+        return "user deleted successfully";
+    }
 
 
 
