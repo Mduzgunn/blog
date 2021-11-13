@@ -48,4 +48,11 @@ public class UserDtoConverter {
                 )
         ).collect(Collectors.toList());
     }
+
+    public List<UserDto> convertToUserDtoList(List<User> from) {
+        return from
+                .stream()
+                .map(this::convertToUserDto)
+                .collect(Collectors.toList());
+    }
 }
