@@ -11,6 +11,7 @@ public class BlogApplication implements CommandLineRunner {
         SpringApplication.run(BlogApplication.class, args);
     }
 
+    @Override
     public void run(String... args) throws Exception {
         System.out.println("deneme");
     }

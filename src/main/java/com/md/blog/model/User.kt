@@ -13,27 +13,27 @@ data class User @JvmOverloads constructor(
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         val uid: String? = "",
-        val username: String= "",
-        val email: String="",
-        val creationDate: LocalDateTime,
+        val username: String,
+        val email: String,
+        val creationDate: LocalDateTime= LocalDateTime.now(),
 
 
-        @OneToMany(fetch = FetchType.LAZY,mappedBy = "user")
-        val post: List<Post>,
+        @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = [CascadeType.ALL])
+        val post: List<Post>?=ArrayList(),
 
-        @OneToMany(fetch = FetchType.LAZY, mappedBy = "user") //
-        val comment: List<Comment>,
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = [CascadeType.ALL]) //
+        val comment: List<Comment>?=ArrayList(),
 
 
         ) {
-    constructor(username: String,email: String):this(
-            "",
-            username=username,
-            email = email,
-            creationDate = LocalDateTime.now(),
-            post = listOf(),
-            comment= listOf()
-    )
+//    constructor(username: String,email: String):this(
+//            "",
+//            username=username,
+//            email = email,
+//            creationDate = LocalDateTime.now(),
+//            post = listOf(),
+//            comment= listOf()
+//    )
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

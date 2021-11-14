@@ -19,11 +19,11 @@ data class Post @JvmOverloads constructor(
 
         val creationDate: LocalDateTime,
 
-        @ManyToOne(cascade = [CascadeType.ALL])
+        @ManyToOne
         @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
-        @OneToMany(mappedBy = "post", fetch = FetchType.LAZY) //
+        @OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = [CascadeType.ALL]) //
         val comment: List<Comment>,
 
 

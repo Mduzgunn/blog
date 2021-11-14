@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,10 +23,10 @@ public class PostDtoConverter {
                 from.getBody(),
                 from.getPostTags(),
                 from.getCreationDate(),
-             new UserDto(from.getUser().getUid(),
+                new UserDto(Objects.requireNonNull(from.getUser().getUid()),
                      from.getUser().getUsername(),
-                     from.getUser().getEmail(),
-                     from.getUser().getCreationDate()
+                     from.getUser().getEmail()
+                    // from.getUser().getCreationDate()
                      ),
                 new ArrayList<>(getCommentList(from.getComment()))
 
@@ -41,6 +42,4 @@ public class PostDtoConverter {
                 )
         ).collect(Collectors.toList());
     }
-
-
 }

@@ -11,6 +11,9 @@ import com.md.blog.model.User;
 import com.md.blog.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,9 +53,17 @@ public class UserService {
     }
 
 
+//    public List<UserDto> getAllUsers(){
+//        return userRepository.findAll().stream().
+//                map(userDtoConverter::convertToUserDto).collect(Collectors.toList());
+//    }
+
+    protected List<User> getAllUserList(){
+        return userRepository.findAll();
+    }
+
     public List<UserDto> getAllUsers(){
-        return userRepository.findAll().stream().
-                map(userDtoConverter::convertToUserDto).collect(Collectors.toList());
+        return userDtoConverter.convertToUserDtoList(getAllUserList());
     }
 
 

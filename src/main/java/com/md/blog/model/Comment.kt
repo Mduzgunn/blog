@@ -14,11 +14,11 @@ data class Comment @JvmOverloads constructor(
         val creationDate: LocalDateTime,
 
 
-        @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+        @ManyToOne(fetch = FetchType.LAZY)
        @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
-        @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "post_id", referencedColumnName = "pid")
         val post: Post,
 

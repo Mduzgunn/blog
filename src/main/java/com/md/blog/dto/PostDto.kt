@@ -15,7 +15,7 @@ data class PostDto @JvmOverloads constructor(
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         val author: UserDto?=null,
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        val comments: List<CommentDto>? = ArrayList(),
+        val comments: List<CommentDto>?=ArrayList(),
 
 
-)
+        )
