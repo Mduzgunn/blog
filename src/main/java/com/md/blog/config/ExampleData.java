@@ -30,19 +30,6 @@
 //    public void run(String... args) throws Exception {
 //
 //
-//        User user1 = new User(
-//                "ugurcandede",
-//                "ugur@dede.com",
-//                "Ugurcan Dede",
-//                Collections.emptyList(),
-//                Collections.emptyList());
-//
-//        Post post = new Post(
-//                "Hello",
-//                "Hello Folksie!~",
-//                PostTags.CODE,
-//                user1);
-//
 //
 //    }
 //}
