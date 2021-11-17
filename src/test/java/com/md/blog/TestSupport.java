@@ -16,7 +16,6 @@ import java.util.List;
 
 public class TestSupport {
 
-
     public User generateUser() {
         return new User(
                 "uid",
