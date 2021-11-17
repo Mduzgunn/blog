@@ -26,7 +26,7 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity<List<CommentDto>> getComments() {
-        return ResponseEntity.ok(commentService.getAllComments());
+        return ResponseEntity.ok(commentService.getAllCommentDtos());
     }
 
     @GetMapping("/{id}")

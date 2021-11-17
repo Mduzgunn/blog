@@ -39,7 +39,7 @@ class PostServiceTest extends TestSupport {
 
 
     @Test
-    void testGetPostById_whenCalledWithExistId_itShouldReturnPostDto() {
+    void testGetPostById_whenIdExist_itShouldReturnPostDto() {
         Post post = generatePost();
         PostDto postDto = generatePostDto();
 
@@ -56,8 +56,7 @@ class PostServiceTest extends TestSupport {
     }
 
     @Test
-    void testGetPostById_whenCalledIdNotExists_itShouldThrowNotFoundException() {
-
+    void testGetPostById_whenIdNotExists_itShouldThrowNotFoundException() {
         Mockito.when(postRepository.findById("id")).thenThrow(NotFoundException.class);
 
         assertThrows(NotFoundException.class, () -> postService.getPostById("id"));
@@ -102,7 +101,7 @@ class PostServiceTest extends TestSupport {
 //    }
 
     @Test
-    void testCreatePost_whenCalledCreatePostRequest_itShouldReturnPostDto() {
+    void testCreatePost_whenCreatePostRequest_itShouldReturnPostDto() {
         CreatePostRequest createPostRequest = generateCreatePostRequest();
         Post post = generatePost();
         PostDto postDto =generatePostDto();
@@ -121,28 +120,28 @@ class PostServiceTest extends TestSupport {
     }
 
     @Test
-    void testCreatePost_whenUserDoesntExists_itThrowNotFoundException() {
+    void testCreatePost_whenUserIdDoesNotExists_itThrowNotFoundException() {
 
         CreatePostRequest createPostRequest = generateCreatePostRequest();
 
-        Mockito.when(userService.findUserById("pid")).thenThrow(NotFoundException.class);
+        Mockito.when(userService.findUserById("uid")).thenThrow(NotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> postService.createPost("pid",createPostRequest));
+        assertThrows(NotFoundException.class, () -> postService.createPost("uid",createPostRequest));
 
-        Mockito.verify(userService).findUserById("pid");
+        Mockito.verify(userService).findUserById("uid");
         Mockito.verifyNoInteractions(postDtoConverter);
         Mockito.verifyNoInteractions(postRepository);
     }
 
     @Test
-    void testUpdatePost_whenCalledUpdatePostRequest_itShouldReturnPostDto() {
+    void testUpdatePost_whenUpdatePostRequest_itShouldReturnPostDto() {
 
         UpdatePostRequest request = generateUpdatePostRequest();
         Post updatedPost = generateUpdatedPost(generatePost(), request);
         PostDto postDto = generatePostDto();
         User user = generateUser();
 
-        Mockito.when(postRepository.findById("pid")).thenReturn(Optional.ofNullable(generatePost()));
+        Mockito.when(postRepository.findById("pid")).thenReturn(Optional.of(generatePost()));
         Mockito.when(postDtoConverter.convertToPostDto(postRepository.save(updatedPost))).thenReturn(postDto);
 
         PostDto result = postService.updatePost("pid", request);
@@ -167,12 +166,12 @@ class PostServiceTest extends TestSupport {
     }
 
     @Test
-    void testDeletePost_whenCalledValidId_itShouldReturnString() {
+    void testDeletePostById_whenValidId_itShouldReturnString() {
 
         Post post = generatePost();
         PostDto postDto = generatePostDto();
 
-        Mockito.when(postRepository.findById("pid")).thenReturn(Optional.ofNullable(post));
+        Mockito.when(postRepository.findById("pid")).thenReturn(Optional.of(post));
         Mockito.when(postDtoConverter.convertToPostDto(post)).thenReturn(postDto);
 
         String result = postService.deletePostById("pid");

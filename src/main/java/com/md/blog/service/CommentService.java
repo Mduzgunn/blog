@@ -1,6 +1,7 @@
 package com.md.blog.service;
 
 import com.md.blog.dto.CommentDto;
+import com.md.blog.dto.PostDto;
 import com.md.blog.dto.converter.CommentDtoConverter;
 import com.md.blog.dto.requests.CreateCommentRequest;
 import com.md.blog.exception.NotFoundException;
@@ -46,12 +47,19 @@ public class CommentService {
                 .orElseThrow(() -> new NotFoundException("comment not found"));
     }
 
-    public CommentDto getCommentById(String id){
-        return commentDtoConverter.convertToCommentDto(findCommentById(id));
+//    public List<CommentDto> getAllComments(){
+//        return commentRepository.findAll().stream().map(commentDtoConverter::convertToCommentDto).collect(Collectors.toList());
+//    }
+
+    protected List<Comment> getAllComments() {
+        return commentRepository.findAll();
+    }
+    public List<CommentDto> getAllCommentDtos() {
+        return commentDtoConverter.convertToCommentDtoList(getAllComments());
     }
 
-    public List<CommentDto> getAllComments(){
-        return commentRepository.findAll().stream().map(commentDtoConverter::convertToCommentDto).collect(Collectors.toList());
+    public CommentDto getCommentById(String id){
+        return commentDtoConverter.convertToCommentDto(findCommentById(id));
     }
 
     public String deleteCommentById(String id){

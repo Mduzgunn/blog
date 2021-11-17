@@ -1,9 +1,11 @@
 package com.md.blog;
 
 import com.md.blog.dto.*;
+import com.md.blog.dto.requests.CreateCommentRequest;
 import com.md.blog.dto.requests.CreatePostRequest;
 import com.md.blog.dto.requests.CreateUserRequest;
 import com.md.blog.dto.requests.UpdatePostRequest;
+import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.PostTags;
 import com.md.blog.model.User;
@@ -17,7 +19,7 @@ public class TestSupport {
 
     public User generateUser() {
         return new User(
-                "id",
+                "uid",
                 "username",
                 "email",
                 LocalDateTime.now(),
@@ -28,7 +30,7 @@ public class TestSupport {
 
     public UserDto generateUserDto() {
         return new UserDto(
-                "id",
+                "uid",
                 "username",
                 "email",
                 Collections.emptyList(),
@@ -58,8 +60,8 @@ public class TestSupport {
     public Post generatePost() {
         User user = generateUser();
         return new Post(
-                "",
                 "title",
+                "body",
                 PostTags.CODE,
                 user
         );
@@ -68,7 +70,7 @@ public class TestSupport {
     public PostDto generatePostDto() {
         UserDto userDto = generateUserDto();
         return new PostDto(
-                "id",
+                "pid",
                 "title",
                 "body",
                 PostTags.CODE,
@@ -115,7 +117,42 @@ public class TestSupport {
                 from.getUser(),
                 from.getComment()
         );
+    }
+//            ***Comment***
 
+    public Comment generateComment(){
+        Post post = generatePost();
+        User user = generateUser();
+        return new Comment(
+                "comment",
+                user,
+                post
+        );
     }
 
+    public CommentDto generateCommentDto(){
+        UserDto userDto = generateUserDto();
+        return new CommentDto(
+                "cid",
+                "comment",
+                LocalDateTime.of(2021, 11, 11, 11, 11),
+                userDto
+        );
+    }
+
+    public List<Comment> generateCommentList(){
+        return List.of(generateComment());
+    }
+
+    public List<CommentDto> generateCommentDtoList(){
+        return List.of(generateCommentDto());
+    }
+
+    public CreateCommentRequest generateCreateCommentRequest(){
+        return new CreateCommentRequest(
+                "uid",
+                "pid",
+                "comment"
+        );
+    }
 }
