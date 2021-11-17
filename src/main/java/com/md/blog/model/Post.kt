@@ -1,9 +1,9 @@
 package com.md.blog.model
 
-import org.hibernate.Hibernate
-import org.hibernate.annotations.GenericGenerator
-import java.time.LocalDateTime
-import javax.persistence.*
+import org.hibernate.annotations.GenericGenerator;
+import java.time.LocalDateTime;
+import java.util.*;
+import javax.persistence.*;
 
 @Entity
 data class Post @JvmOverloads constructor(
@@ -17,13 +17,15 @@ data class Post @JvmOverloads constructor(
         val body: String,
         val postTags: PostTags,
 
-        val creationDate: LocalDateTime,
+        val creationDate: LocalDateTime= LocalDateTime.now(),
+
+        val updatedDate: LocalDateTime = LocalDateTime.now(),
 
         @ManyToOne
         @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
-        @OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = [CascadeType.ALL]) //
+        @OneToMany(mappedBy = "post", fetch = FetchType.LAZY,cascade = [CascadeType.ALL])
         val comment: List<Comment>,
 
 
@@ -35,10 +37,10 @@ data class Post @JvmOverloads constructor(
             body = body,
             postTags = postTags,
             creationDate = LocalDateTime.now(),
+            updatedDate = LocalDateTime.now(),
             user = user,
-            comment= listOf()
+            comment= Collections.emptyList()
     )
-
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -51,6 +53,7 @@ data class Post @JvmOverloads constructor(
         if (body != other.body) return false
         if (postTags != other.postTags) return false
         if (creationDate != other.creationDate) return false
+        if (updatedDate != other.updatedDate) return false
         if (user != other.user) return false
         if (comment != other.comment) return false
 
@@ -63,12 +66,11 @@ data class Post @JvmOverloads constructor(
         result = 31 * result + body.hashCode()
         result = 31 * result + postTags.hashCode()
         result = 31 * result + creationDate.hashCode()
+        result = 31 * result + updatedDate.hashCode()
         result = 31 * result + user.hashCode()
         result = 31 * result + comment.hashCode()
         return result
     }
-
-
 }
 
 enum class PostTags {

@@ -5,12 +5,9 @@ import com.md.blog.dto.PostDto;
 import com.md.blog.dto.UserDto;
 import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
-import com.md.blog.model.User;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,13 +20,12 @@ public class PostDtoConverter {
                 from.getBody(),
                 from.getPostTags(),
                 from.getCreationDate(),
-                new UserDto(Objects.requireNonNull(from.getUser().getUid()),
+                from.getUpdatedDate(),
+                new UserDto(from.getUser().getUid(),
                      from.getUser().getUsername(),
                      from.getUser().getEmail()
-                    // from.getUser().getCreationDate()
                      ),
-                new ArrayList<>(getCommentList(from.getComment()))
-
+                getCommentList(from.getComment())
         );
     }
 
@@ -41,5 +37,12 @@ public class PostDtoConverter {
                         c.getCreationDate()
                 )
         ).collect(Collectors.toList());
+    }
+
+    public List<PostDto> convertToPostDtoList(List<Post> posts) {
+        return posts
+                .stream()
+                .map(this::convertToPostDto)
+                .collect(Collectors.toList());
     }
 }

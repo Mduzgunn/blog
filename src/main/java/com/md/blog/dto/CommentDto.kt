@@ -5,7 +5,6 @@ import java.time.LocalDateTime
 
 
 data class CommentDto @JvmOverloads constructor(
-        //cid,comment,author,date_created
         val cid: String?,
         val comment: String,
         val creationDate: LocalDateTime,

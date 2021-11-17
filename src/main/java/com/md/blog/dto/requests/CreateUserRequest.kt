@@ -1,11 +1,14 @@
 package com.md.blog.dto.requests
 
 import javax.validation.constraints.Email
-import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.NotBlank
 
 data class CreateUserRequest(
-        @field:NotEmpty()
+
+        @field:NotBlank
         val username: String,
+
+        @field:NotBlank
         @field:Email
         val email: String,
 

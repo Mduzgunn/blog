@@ -18,5 +18,5 @@ data class CreatePostRequest(
         val tags: PostTags,
 
         @field:NotBlank(message = "yazar boş bırakılamaz")
-        val uid: String?
+        val uid: String
 )

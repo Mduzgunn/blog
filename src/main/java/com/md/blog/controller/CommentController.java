@@ -2,10 +2,7 @@ package com.md.blog.controller;
 
 
 import com.md.blog.dto.CommentDto;
-import com.md.blog.dto.PostDto;
 import com.md.blog.dto.requests.CreateCommentRequest;
-import com.md.blog.dto.requests.CreatePostRequest;
-import com.md.blog.model.Comment;
 import com.md.blog.service.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

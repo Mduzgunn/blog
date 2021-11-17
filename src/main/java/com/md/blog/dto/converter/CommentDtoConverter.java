@@ -23,7 +23,6 @@ public class CommentDtoConverter {
                         from.getUser().getEmail(),
                         Collections.emptyList(),
                         Collections.emptyList()
-                        //from.getUser().getCreationDate()
                         )
         );
     }

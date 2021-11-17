@@ -13,9 +13,8 @@ data class Comment @JvmOverloads constructor(
         val comment: String,
         val creationDate: LocalDateTime,
 
-
         @ManyToOne(fetch = FetchType.LAZY)
-       @JoinColumn(name = "user_id", referencedColumnName = "uid")
+        @JoinColumn(name = "user_id", referencedColumnName = "uid")
         val user: User,
 
         @ManyToOne(fetch = FetchType.LAZY)

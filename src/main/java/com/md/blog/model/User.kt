@@ -1,15 +1,14 @@
 package com.md.blog.model
 
-import org.hibernate.annotations.GenericGenerator
-import java.time.LocalDateTime
-import javax.persistence.Entity
-import javax.persistence.*
+import org.hibernate.annotations.GenericGenerator;
+import java.time.LocalDateTime;
+import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "blog_user")
 data class User @JvmOverloads constructor(
         @Id
-      //  @Column(name = "uid")
         @GeneratedValue(generator = "UUID")
         @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
         val uid: String? = "",
@@ -19,14 +18,15 @@ data class User @JvmOverloads constructor(
 
 
         @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = [CascadeType.ALL])
-        val post: List<Post>?=ArrayList(),
+        val post: List<Post>,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = [CascadeType.ALL]) //
-        val comment: List<Comment>?=ArrayList(),
+        val comment: List<Comment>,
 
 
         ) {
-//    constructor(username: String,email: String):this(
+
+    //    constructor(username: String,email: String):this(
 //            "",
 //            username=username,
 //            email = email,

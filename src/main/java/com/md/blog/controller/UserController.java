@@ -2,7 +2,6 @@ package com.md.blog.controller;
 
 import com.md.blog.dto.UserDto;
 import com.md.blog.dto.requests.CreateUserRequest;
-import com.md.blog.model.User;
 import com.md.blog.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
