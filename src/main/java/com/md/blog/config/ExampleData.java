@@ -36,9 +36,7 @@ public class ExampleData implements CommandLineRunner {
 
     User user= new User(
             "username",
-            "user@gmail.com",
-            Collections.emptyList(),
-            Collections.emptyList()
+            "user@gmail.com"
     );
     userRepository.save(user);
 

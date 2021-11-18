@@ -1,10 +1,15 @@
 package com.md.blog.service;
 
 import com.md.blog.TestSupport;
+import com.md.blog.dto.PostDto;
 import com.md.blog.dto.UserDto;
 import com.md.blog.dto.converter.UserDtoConverter;
 import com.md.blog.dto.requests.CreateUserRequest;
-import com.md.blog.exception.NotFoundException;
+import com.md.blog.dto.requests.UpdatePostRequest;
+import com.md.blog.dto.requests.UpdateUserRequest;
+import com.md.blog.exception.PostNotFoundException;
+import com.md.blog.exception.UserNotFoundException;
+import com.md.blog.model.Post;
 import com.md.blog.model.User;
 import com.md.blog.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -30,8 +35,6 @@ class UserServiceTest extends TestSupport {
         userService = new UserService(userRepository, userDtoConverter);
     }
 
-    /// test get all users
-
         @Test
     void testGetAllUsers_itShouldReturnDtoList() {
 
@@ -49,9 +52,8 @@ class UserServiceTest extends TestSupport {
         Mockito.verify(userDtoConverter).convertToUserDtoList(userList);
     }
 
-    ///get user by id test
     @Test
-    void testGetUserById_whenCalledWithId_itShouldReturnUserDto() {
+    void testGetUserById_whenGetWithId_itShouldReturnUserDto() {
         User user = generateUser();
         UserDto userDto = generateUserDto();
 
@@ -67,40 +69,64 @@ class UserServiceTest extends TestSupport {
     }
 
     @Test
-    void testGetUserById_whenIdNotExist_itShouldThrowNotFoundException() {
+    void testGetUserById_whenIdNotExist_itShouldThrowUserNotFoundException() {
 
-        Mockito.when(userRepository.findById("id")).thenThrow(NotFoundException.class);
+        Mockito.when(userRepository.findById("id")).thenThrow(UserNotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> userService.getUserById("id"));
+        assertThrows(UserNotFoundException.class, () -> userService.getUserById("id"));
 
         Mockito.verify(userRepository).findById("id");
         Mockito.verifyNoInteractions(userDtoConverter);
     }
 
-
-    //test create user
     @Test
-    void testCreateUser_whenCalledValidRequest_itShouldReturnUserDto() {
+    void testCreateUser_whenGetValidRequest_itShouldReturnUserDto() {
         CreateUserRequest createUserRequest = generateCreateUserRequest();
         User expectedUser = generateUser();
         UserDto expectedUserDto = generateUserDto();
 
-
         Mockito.when(userDtoConverter.convertToUserDto(userRepository.save(expectedUser))).thenReturn(expectedUserDto);
-    //    Mockito.when(userRepository.save(userRepository.save(expectedUser))).thenReturn(expectedUser);
 
         UserDto result = userService.createUser(createUserRequest);
-
 
         Assertions.assertEquals(expectedUserDto, result);
 
         Mockito.verify(userDtoConverter).convertToUserDto(userRepository.save(expectedUser));
-//        Mockito.verify(userRepository).save(expectedUser);
     }
 
-    // test delete user by id
     @Test
-    void testDeleteUser_whenCalledValidId_itShouldReturnString() {
+    void testUpdatePost_whenGetUpdatePostRequest_itShouldReturnPostDto() {
+
+        UpdateUserRequest updateUserRequest = generateUpdateUserRequest();
+        User updatedUser = generateUpdatedUser(generateUser(), updateUserRequest);
+        UserDto userDto = generateUserDto();
+
+        Mockito.when(userRepository.findById("uid")).thenReturn(Optional.of(generateUser()));
+        Mockito.when(userDtoConverter.convertToUserDto(userRepository.save(updatedUser))).thenReturn(userDto);
+
+        UserDto result = userService.updateUser("uid", updateUserRequest);
+
+        assertEquals(userDto, result);
+
+        Mockito.verify(userRepository).findById("uid");
+        Mockito.verify(userDtoConverter).convertToUserDto(userRepository.save(updatedUser));
+    }
+
+    @Test
+    void testUpdateUser_whenGetUpdateUserRequestButInvalidId_itShouldThrowUserNotFoundException() {
+
+        UpdateUserRequest updateUserRequest = generateUpdateUserRequest();
+
+        Mockito.when(userRepository.findById("uid")).thenThrow(UserNotFoundException.class);
+
+        assertThrows(UserNotFoundException.class, () -> userService.updateUser("uid",updateUserRequest));
+
+        Mockito.verify(userRepository).findById("uid");
+        Mockito.verifyNoInteractions(userDtoConverter);
+    }
+
+    @Test
+    void testDeleteUser_whenGetValidId_itShouldReturnString() {
 
         User expectedUser = generateUser();
         UserDto expectedUserDto = generateUserDto();
@@ -112,18 +138,18 @@ class UserServiceTest extends TestSupport {
 
         String result = userService.deleteUserById("id");
 
-        assertEquals("user deleted successfully", result);
+        assertEquals("user deleted successfully" + "id" , result);
 
         Mockito.verify(userRepository).findById("id");
         Mockito.verify(userDtoConverter).convertToUserDto(expectedUser);
     }
 
     @Test
-    void testDeleteUser_whenCalledInValidId_itShouldThrowNotFoundException() {
+    void testDeleteUser_whenGetInValidId_itShouldThrowUserNotFoundException() {
 
-        Mockito.when(userRepository.findById("id")).thenThrow(NotFoundException.class);
+        Mockito.when(userRepository.findById("id")).thenThrow(UserNotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> userService.getUserById("id"));
+        assertThrows(UserNotFoundException.class, () -> userService.getUserById("id"));
 
         Mockito.verify(userRepository).findById("id");
         Mockito.verifyNoInteractions(userDtoConverter);

@@ -19,7 +19,7 @@ public class UserDtoConverter {
                 from.getUid(),
                 from.getUsername(),
                 from.getEmail(),
-                //from.getCreationDate(),
+                from.getUpdatedDate(),
                 getPostList(from.getPost()),
                 getCommentList(from.getComment())
         );

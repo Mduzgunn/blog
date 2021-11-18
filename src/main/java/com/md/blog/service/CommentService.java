@@ -1,10 +1,9 @@
 package com.md.blog.service;
 
 import com.md.blog.dto.CommentDto;
-import com.md.blog.dto.PostDto;
 import com.md.blog.dto.converter.CommentDtoConverter;
 import com.md.blog.dto.requests.CreateCommentRequest;
-import com.md.blog.exception.NotFoundException;
+import com.md.blog.exception.CommentNotFoundException;
 import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.User;
@@ -12,7 +11,6 @@ import com.md.blog.repository.CommentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -44,17 +42,14 @@ public class CommentService {
 
     protected Comment findCommentById(String id){
         return commentRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("comment not found"));
+                .orElseThrow(() -> new CommentNotFoundException("comment not found " + id));
     }
-
-//    public List<CommentDto> getAllComments(){
-//        return commentRepository.findAll().stream().map(commentDtoConverter::convertToCommentDto).collect(Collectors.toList());
-//    }
 
     protected List<Comment> getAllComments() {
         return commentRepository.findAll();
     }
-    public List<CommentDto> getAllCommentDtos() {
+
+    public List<CommentDto> getAllCommentDtoList() {
         return commentDtoConverter.convertToCommentDtoList(getAllComments());
     }
 
@@ -65,9 +60,8 @@ public class CommentService {
     public String deleteCommentById(String id){
         getCommentById(id);
         commentRepository.deleteById(id);
-        return "comment deleted successfully";
+        return "comment deleted successfully " + id;
     }
-
 
 
 }

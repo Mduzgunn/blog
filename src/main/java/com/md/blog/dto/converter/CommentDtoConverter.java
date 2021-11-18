@@ -20,9 +20,7 @@ public class CommentDtoConverter {
                 from.getCreationDate(),
                 new UserDto(Objects.requireNonNull(from.getUser().getUid()),
                         from.getUser().getUsername(),
-                        from.getUser().getEmail(),
-                        Collections.emptyList(),
-                        Collections.emptyList()
+                        from.getUser().getEmail()
                         )
         );
     }

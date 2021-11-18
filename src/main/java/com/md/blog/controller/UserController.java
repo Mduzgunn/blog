@@ -1,7 +1,10 @@
 package com.md.blog.controller;
 
+import com.md.blog.dto.PostDto;
 import com.md.blog.dto.UserDto;
 import com.md.blog.dto.requests.CreateUserRequest;
+import com.md.blog.dto.requests.UpdatePostRequest;
+import com.md.blog.dto.requests.UpdateUserRequest;
 import com.md.blog.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +39,11 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserRequest createUserRequest) {
         return ResponseEntity.ok(userService.createUser(createUserRequest));
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserDto> updatePost(@PathVariable String id, @RequestBody UpdateUserRequest updateUserRequest) {
+        return ResponseEntity.ok(userService.updateUser(id, updateUserRequest));
     }
 
 }

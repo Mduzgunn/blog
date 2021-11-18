@@ -1,10 +1,7 @@
 package com.md.blog;
 
 import com.md.blog.dto.*;
-import com.md.blog.dto.requests.CreateCommentRequest;
-import com.md.blog.dto.requests.CreatePostRequest;
-import com.md.blog.dto.requests.CreateUserRequest;
-import com.md.blog.dto.requests.UpdatePostRequest;
+import com.md.blog.dto.requests.*;
 import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.PostTags;
@@ -21,9 +18,8 @@ public class TestSupport {
                 "uid",
                 "username",
                 "email",
-                LocalDateTime.now(),
-                Collections.emptyList(),
-                Collections.emptyList()
+                LocalDateTime.of(2021, 11, 11, 11, 11),
+                LocalDateTime.of(2021, 11, 11, 11, 11)
         );
     }
 
@@ -32,6 +28,7 @@ public class TestSupport {
                 "uid",
                 "username",
                 "email",
+                LocalDateTime.of(2021, 11, 11, 11, 11),
                 Collections.emptyList(),
                 Collections.emptyList()
         );
@@ -50,7 +47,25 @@ public class TestSupport {
     public CreateUserRequest generateCreateUserRequest() {
         return new CreateUserRequest(
                 "username",
+                "deneme@gmail.com"
+        );
+    }
+    public UpdateUserRequest generateUpdateUserRequest() {
+        return new UpdateUserRequest(
+                "username",
                 "email"
+        );
+    }
+
+    public User generateUpdatedUser(User from, UpdateUserRequest updateUserRequest) {
+        return new User(
+                from.getUid(),
+                updateUserRequest.getUsername(),
+                updateUserRequest.getEmail(),
+                from.getCreationDate(),
+                from.getUpdatedDate(),
+                from.getPost(),
+                from.getComment()
         );
     }
 
@@ -117,6 +132,7 @@ public class TestSupport {
                 from.getComment()
         );
     }
+
 //            ***Comment***
 
     public Comment generateComment(){

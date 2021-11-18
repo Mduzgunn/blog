@@ -4,7 +4,9 @@ import com.md.blog.TestSupport;
 import com.md.blog.dto.CommentDto;
 import com.md.blog.dto.converter.CommentDtoConverter;
 import com.md.blog.dto.requests.CreateCommentRequest;
-import com.md.blog.exception.NotFoundException;
+import com.md.blog.exception.CommentNotFoundException;
+import com.md.blog.exception.PostNotFoundException;
+import com.md.blog.exception.UserNotFoundException;
 import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.User;
@@ -54,11 +56,11 @@ class CommentServiceTest extends TestSupport {
     }
 
     @Test
-    void testGetCommentById_whenIdNotExist_itShouldThrowNotFoundException(){
+    void testGetCommentById_whenIdNotExist_itShouldThrowCommentNotFoundException(){
 
-        Mockito.when(commentRepository.findById("cid")).thenThrow(NotFoundException.class);
+        Mockito.when(commentRepository.findById("cid")).thenThrow(CommentNotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> commentService.getCommentById("cid"));
+        assertThrows(CommentNotFoundException.class, () -> commentService.getCommentById("cid"));
 
         Mockito.verify(commentRepository).findById("cid");
         Mockito.verifyNoInteractions(commentDtoConverter);
@@ -73,7 +75,7 @@ class CommentServiceTest extends TestSupport {
         Mockito.when(commentRepository.findAll()).thenReturn(commentList);
         Mockito.when(commentDtoConverter.convertToCommentDtoList(commentList)).thenReturn(commentDtoList);
 
-        List<CommentDto> result = commentService.getAllCommentDtos();
+        List<CommentDto> result = commentService.getAllCommentDtoList();
 
         assertEquals(commentDtoList,result);
 
@@ -104,35 +106,33 @@ class CommentServiceTest extends TestSupport {
     }
 
      @Test
-    void testCreateComment_whenUserIdDoesNotExist_itThrowNotFoundException(){
+    void testCreateComment_whenUserIdDoesNotExist_itThrowUserNotFoundException(){
 
         CreateCommentRequest createCommentRequest=generateCreateCommentRequest();
 
-        Mockito.when(userService.findUserById("uid")).thenThrow(NotFoundException.class);
+        Mockito.when(userService.findUserById("uid")).thenThrow(UserNotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> commentService.createComment(createCommentRequest));
+        assertThrows(UserNotFoundException.class, () -> commentService.createComment(createCommentRequest));
 
         Mockito.verify(userService).findUserById("uid");
         Mockito.verifyNoInteractions(commentDtoConverter);
         Mockito.verifyNoInteractions(commentRepository);
      }
-//TODO***********************
+
     @Test
-    void testCreateComment_whenUserIdExistAndPostIdDoesNotExist_itThrowNotFoundException(){
+    void testCreateComment_whenUserIdExistAndPostIdDoesNotExist_itThrowPostNotFoundException(){
 
         CreateCommentRequest createCommentRequest=generateCreateCommentRequest();
 
         Mockito.when(userService.findUserById(createCommentRequest.getUid())).thenReturn(generateUser());
-        Mockito.when(postService.findPostById(createCommentRequest.getPid())).thenThrow(NotFoundException.class);
+        Mockito.when(postService.findPostById(createCommentRequest.getPid())).thenThrow(PostNotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> commentService.createComment(createCommentRequest));
+        assertThrows(PostNotFoundException.class, () -> commentService.createComment(createCommentRequest));
 
-//        Mockito.verify(userService).findUserById("uid");
         Mockito.verify(postService).findPostById("pid");
         Mockito.verifyNoInteractions(commentDtoConverter);
         Mockito.verifyNoInteractions(commentRepository);
     }
-
 
     @Test
     void testDeleteCommentById_whenValidId_itShouldReturnString(){
@@ -145,7 +145,7 @@ class CommentServiceTest extends TestSupport {
 
         String result = commentService.deleteCommentById("cid");
 
-        assertEquals("comment deleted successfully", result);
+        assertEquals("comment deleted successfully " + "cid", result);
 
         Mockito.verify(commentRepository).findById("cid");
         Mockito.verify(commentDtoConverter).convertToCommentDto(comment);
@@ -154,9 +154,9 @@ class CommentServiceTest extends TestSupport {
     @Test
     void testDeleteCommentById_whenInvalidId_itShouldThrowNotFoundException(){
 
-        Mockito.when(commentRepository.findById("cid")).thenThrow(NotFoundException.class);
+        Mockito.when(commentRepository.findById("cid")).thenThrow(CommentNotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> commentService.getCommentById("cid"));
+        assertThrows(CommentNotFoundException.class, () -> commentService.getCommentById("cid"));
 
         Mockito.verify(commentRepository).findById("cid");
         Mockito.verifyNoInteractions(commentDtoConverter);

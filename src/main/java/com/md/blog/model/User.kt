@@ -14,14 +14,16 @@ data class User @JvmOverloads constructor(
         val uid: String? = "",
         val username: String,
         val email: String,
+
         val creationDate: LocalDateTime= LocalDateTime.now(),
 
+        val updatedDate: LocalDateTime = LocalDateTime.now(),
 
         @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = [CascadeType.ALL])
-        val post: List<Post>,
+        val post: List<Post>?=ArrayList() ,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = [CascadeType.ALL]) //
-        val comment: List<Comment>,
+        val comment: List<Comment>?=ArrayList(),
 
 
         ) {

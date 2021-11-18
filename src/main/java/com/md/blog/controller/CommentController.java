@@ -1,6 +1,5 @@
 package com.md.blog.controller;
 
-
 import com.md.blog.dto.CommentDto;
 import com.md.blog.dto.requests.CreateCommentRequest;
 import com.md.blog.service.CommentService;
@@ -26,7 +25,7 @@ public class CommentController {
 
     @GetMapping
     public ResponseEntity<List<CommentDto>> getComments() {
-        return ResponseEntity.ok(commentService.getAllCommentDtos());
+        return ResponseEntity.ok(commentService.getAllCommentDtoList());
     }
 
     @GetMapping("/{id}")

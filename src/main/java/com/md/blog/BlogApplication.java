@@ -1,7 +1,12 @@
 package com.md.blog;
 
+import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+
 
 @SpringBootApplication
 public class BlogApplication {
@@ -10,4 +15,13 @@ public class BlogApplication {
         SpringApplication.run(BlogApplication.class, args);
     }
 
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Blog API")
+                        .version("1.0")
+                        .description("This is simply a blog application\n")
+                        .license(new License().name("MD Blog API Licence")));
+    }
 }

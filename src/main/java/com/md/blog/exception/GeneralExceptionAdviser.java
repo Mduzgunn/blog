@@ -32,8 +32,19 @@ public class GeneralExceptionAdviser extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<?> handle(NotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handle(UserNotFoundException exception) {
+        return handleNotFound(exception.getMessage());
+    }
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<?> handle(PostNotFoundException exception) {
+        return handleNotFound(exception.getMessage());
+    }
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<?> handle(CommentNotFoundException exception) {
+        return handleNotFound(exception.getMessage());
+    }
+    private ResponseEntity<?> handleNotFound(String s) {
+        return new ResponseEntity<>(s, HttpStatus.NOT_FOUND);
     }
 }

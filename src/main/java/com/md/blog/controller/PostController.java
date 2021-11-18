@@ -19,35 +19,29 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/{pid}")
-    public ResponseEntity<PostDto> createPost(@PathVariable String pid, @Valid @RequestBody CreatePostRequest createPostRequest) {
-        return ResponseEntity.ok(postService.createPost(pid,createPostRequest));
+    @PostMapping("/{id}")
+    public ResponseEntity<PostDto> createPost(@PathVariable String id, @Valid @RequestBody CreatePostRequest createPostRequest) {
+        return ResponseEntity.ok(postService.createPost(id,createPostRequest));
     }
 
-
-//    @PutMapping("/{id}")
-//    public ResponseEntity<PostDto> updatePost(@PathVariable String pid,
-//                                              @Valid @RequestBody UpdatePostRequest request) {
-//        return ResponseEntity.ok(postService.updatePost(pid, request));
-//    }
-    @PutMapping(value = "/{pid}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable String pid, @RequestBody UpdatePostRequest updatePostRequest) {
-        return ResponseEntity.ok(postService.updatePost(pid, updatePostRequest));
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable String id, @RequestBody UpdatePostRequest updatePostRequest) {
+        return ResponseEntity.ok(postService.updatePost(id, updatePostRequest));
     }
 
     @GetMapping
     public ResponseEntity<List<PostDto>> getPosts() {
-        return ResponseEntity.ok(postService.getAllPostDtos());
+        return ResponseEntity.ok(postService.getAllPostDtoList());
     }
 
-    @GetMapping("/{pid}")
-    public ResponseEntity<PostDto> getUserByID(@PathVariable String pid) {
-        return ResponseEntity.ok(postService.getPostById(pid));
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getUserByID(@PathVariable String id) {
+        return ResponseEntity.ok(postService.getPostById(id));
     }
 
-    @DeleteMapping("/{pid}")
-    public ResponseEntity<String> deletePostById(@PathVariable String pid) {
-        return ResponseEntity.ok(postService.deletePostById(pid));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePostById(@PathVariable String id) {
+        return ResponseEntity.ok(postService.deletePostById(id));
     }
 
 

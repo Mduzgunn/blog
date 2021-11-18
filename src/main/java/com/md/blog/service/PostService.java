@@ -4,7 +4,7 @@ import com.md.blog.dto.PostDto;
 import com.md.blog.dto.converter.PostDtoConverter;
 import com.md.blog.dto.requests.CreatePostRequest;
 import com.md.blog.dto.requests.UpdatePostRequest;
-import com.md.blog.exception.NotFoundException;
+import com.md.blog.exception.PostNotFoundException;
 import com.md.blog.model.Post;
 import com.md.blog.model.User;
 import com.md.blog.repository.PostRepository;
@@ -31,17 +31,18 @@ public class PostService {
     protected Post findPostById(String id) {
         return postRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException("post not found"));
+                .orElseThrow(() -> new PostNotFoundException("post not found " + id));
+    }
+
+    protected List<Post> getAllPosts() {
+        return postRepository.findAll();
     }
 
     public PostDto getPostById(String id) {
         return postDtoConverter.convertToPostDto(findPostById(id));
     }
 
-    protected List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
-    public List<PostDto> getAllPostDtos() {
+    public List<PostDto> getAllPostDtoList() {
         return postDtoConverter.convertToPostDtoList(getAllPosts());
     }
 
@@ -57,19 +58,13 @@ public class PostService {
         return postDtoConverter.convertToPostDto(postRepository.save(post));
     }
 
-//    public List<PostDto> getAllPosts() {
-//        return postRepository.findAll().stream().
-//                map(postDtoConverter::convertToPostDto).collect(Collectors.toList());
-//    }
-
-    public String deletePostById(String id) {
-        getPostById(id);
-        postRepository.deleteById(id);
-        return "post deleted successfully";
+    public String deletePostById(String pid) {
+        getPostById(pid);
+        postRepository.deleteById(pid);
+        return "post deleted successfully "+pid;
     }
 
     public PostDto updatePost(String pid, UpdatePostRequest updatePostRequest) {
-
         Post post = findPostById(pid);
 
         Post updatedPost = new Post(
@@ -82,11 +77,7 @@ public class PostService {
                 post.getUser(),
                 post.getComment()
         );
-
         return postDtoConverter.convertToPostDto(postRepository.save(updatedPost));
     }
-
-
-
 
 }
