@@ -13,13 +13,21 @@ import java.util.List;
 
 public class TestSupport {
 
+    private LocalDateTime date=LocalDateTime.of(2021, 11, 11, 11, 11);
+
     public User generateUser() {
         return new User(
-                "uid",
+
                 "username",
-                "email",
-                LocalDateTime.of(2021, 11, 11, 11, 11),
-                LocalDateTime.of(2021, 11, 11, 11, 11)
+                "email"
+        );
+    }
+
+    public User nott() {
+        return new User(
+                "",
+                "username",
+                "email"
         );
     }
 
@@ -28,9 +36,7 @@ public class TestSupport {
                 "uid",
                 "username",
                 "email",
-                LocalDateTime.of(2021, 11, 11, 11, 11),
-                Collections.emptyList(),
-                Collections.emptyList()
+                date
         );
     }
 
@@ -53,7 +59,7 @@ public class TestSupport {
     public UpdateUserRequest generateUpdateUserRequest() {
         return new UpdateUserRequest(
                 "username",
-                "email"
+                "mail"
         );
     }
 
@@ -62,8 +68,8 @@ public class TestSupport {
                 from.getUid(),
                 updateUserRequest.getUsername(),
                 updateUserRequest.getEmail(),
-                from.getCreationDate(),
-                from.getUpdatedDate(),
+                date,
+                date,
                 from.getPost(),
                 from.getComment()
         );
@@ -88,8 +94,8 @@ public class TestSupport {
                 "title",
                 "body",
                 PostTags.CODE,
-                LocalDateTime.of(2021, 11, 11, 11, 11),
-                LocalDateTime.of(2021, 11, 11, 11, 11),
+                date,
+                date,
                 userDto,
                 Collections.emptyList()
         );
@@ -104,12 +110,12 @@ public class TestSupport {
     }
 
     public CreatePostRequest generateCreatePostRequest() {
-       // User user = generateUser();
+        User user = generateUser();
         return new CreatePostRequest(
                 "title",
                 "body",
                 PostTags.CODE,
-                "uid"
+                user.getUid()
         );
     }
 
@@ -126,8 +132,8 @@ public class TestSupport {
                 request.getTitle(),
                 request.getBody(),
                 request.getPostTags(),
-                from.getCreationDate(),
-                from.getUpdatedDate(),
+                date,
+                date,
                 from.getUser(),
                 from.getComment()
         );
@@ -150,7 +156,7 @@ public class TestSupport {
         return new CommentDto(
                 "cid",
                 "comment",
-                LocalDateTime.of(2021, 11, 11, 11, 11),
+                date,
                 userDto
         );
     }

@@ -92,8 +92,9 @@ class PostServiceTest extends TestSupport {
 
         Mockito.when(userService.findUserById("id")).thenReturn(user);
         Mockito.when(postDtoConverter.convertToPostDto(postRepository.save(post))).thenReturn(postDto);
+        Mockito.when(postRepository.save(post)).thenReturn(post);
 
-        PostDto result = postService.createPost("id",createPostRequest);
+        PostDto result = postService.createPost(createPostRequest);
 
         assertEquals(postDto, result);
 
@@ -106,11 +107,11 @@ class PostServiceTest extends TestSupport {
 
         CreatePostRequest createPostRequest = generateCreatePostRequest();
 
-        Mockito.when(userService.findUserById("uid")).thenThrow(UserNotFoundException.class);
+        Mockito.when(userService.findUserById("id")).thenThrow(UserNotFoundException.class);
 
-        assertThrows(UserNotFoundException.class, () -> postService.createPost("uid",createPostRequest));
+        assertThrows(UserNotFoundException.class, () -> postService.createPost(createPostRequest));
 
-        Mockito.verify(userService).findUserById("uid");
+        Mockito.verify(userService).findUserById("id");
         Mockito.verifyNoInteractions(postDtoConverter);
         Mockito.verifyNoInteractions(postRepository);
     }

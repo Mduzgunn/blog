@@ -1,6 +1,7 @@
 package com.md.blog.model
 
 import org.hibernate.annotations.GenericGenerator;
+import java.time.LocalDate
 import java.time.LocalDateTime;
 import java.util.*;
 import javax.persistence.*;
@@ -37,7 +38,6 @@ data class Post @JvmOverloads constructor(
             body = body,
             postTags = postTags,
             creationDate = LocalDateTime.now(),
-            updatedDate = LocalDateTime.now(),
             user = user,
             comment= Collections.emptyList()
     )

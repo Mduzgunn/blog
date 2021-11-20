@@ -10,6 +10,7 @@ import com.md.blog.model.User;
 import com.md.blog.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -46,8 +47,8 @@ public class PostService {
         return postDtoConverter.convertToPostDtoList(getAllPosts());
     }
 
-    public PostDto createPost(String id,CreatePostRequest createPostRequest) {
-        User user = userService.findUserById(id);
+    public PostDto createPost(CreatePostRequest createPostRequest) {
+        User user =userService.findUserById(createPostRequest.getUid());
 
         Post post = new Post(
                 createPostRequest.getTitle(),

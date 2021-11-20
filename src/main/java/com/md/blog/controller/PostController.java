@@ -19,14 +19,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<PostDto> createPost(@PathVariable String id, @Valid @RequestBody CreatePostRequest createPostRequest) {
-        return ResponseEntity.ok(postService.createPost(id,createPostRequest));
+    @PostMapping
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody CreatePostRequest createPostRequest) {
+        return ResponseEntity.ok(postService.createPost(createPostRequest));
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable String id, @RequestBody UpdatePostRequest updatePostRequest) {
-        return ResponseEntity.ok(postService.updatePost(id, updatePostRequest));
+    @PutMapping(value = "/{pid}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable String pid,@Valid @RequestBody UpdatePostRequest updatePostRequest) {
+        return ResponseEntity.ok(postService.updatePost(pid, updatePostRequest));
     }
 
     @GetMapping
@@ -34,14 +34,14 @@ public class PostController {
         return ResponseEntity.ok(postService.getAllPostDtoList());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDto> getUserByID(@PathVariable String id) {
-        return ResponseEntity.ok(postService.getPostById(id));
+    @GetMapping("/{pid}")
+    public ResponseEntity<PostDto> getPostByID(@PathVariable String pid) {
+        return ResponseEntity.ok(postService.getPostById(pid));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePostById(@PathVariable String id) {
-        return ResponseEntity.ok(postService.deletePostById(id));
+    @DeleteMapping("/{pid}")
+    public ResponseEntity<String> deletePostById(@PathVariable String pid) {
+        return ResponseEntity.ok(postService.deletePostById(pid));
     }
 
 
