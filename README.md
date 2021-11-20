@@ -104,12 +104,12 @@ Projeyi çalıştırın
 ![](src/main/resources/static/images/scheme.png "IntelliJ IDEA")
 
 
-![](src/main/resources/static/images/postgre scheme.png "PostgreSQL")
+![](src/main/resources/static/images/postgre-scheme.png "PostgreSQL")
 
 ##### Coverage Test Results
-![](src/main/resources/static/images/test coverage.png )
+![](src/main/resources/static/images/test-coverage.png )
 
 
-![](src/main/resources/static/images/coverage report.png )
+![](src/main/resources/static/images/coverage-report.png )
 
   
