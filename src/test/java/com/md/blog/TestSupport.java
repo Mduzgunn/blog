@@ -39,6 +39,15 @@ public class TestSupport {
         );
     }
 
+    public User generateUserId() {
+        return new User(
+                "uid",
+                "username",
+                "email"
+        );
+    }
+
+
     public UserDto generateUserDto() {
         return new UserDto(
                 "uid",
@@ -132,7 +141,7 @@ public class TestSupport {
     }
 
     public CreatePostRequest generateCreatePostRequest() {
-        User user = generateUser();
+        User user = generateUserId();
         return new CreatePostRequest(
                 "title",
                 "body",
