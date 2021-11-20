@@ -2,6 +2,7 @@ package com.md.blog.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.md.blog.model.PostTags;
+import org.springframework.hateoas.RepresentationModel
 import java.time.LocalDateTime;
 
 data class PostDto @JvmOverloads constructor(
@@ -11,11 +12,10 @@ data class PostDto @JvmOverloads constructor(
         val tags: PostTags,
         val creationDate: LocalDateTime = LocalDateTime.now(),
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        val updatedDate: LocalDateTime?=null,
+        val updatedDate: LocalDateTime? = null,
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        val author: UserDto?=null,
+        val author: UserDto? = null,
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        val comments: List<CommentDto>?=ArrayList()
+        val comments: List<CommentDto>? = ArrayList()
 
-
-        )
+) : RepresentationModel<PostDto>()
