@@ -123,13 +123,12 @@ public class CommentControllerIT extends IntegrationTestSupport {
     }
 
     @Test
-    public void testDeleteCommentById_whenCalledValidId_shouldDeleteCommentAndReturnString() throws Exception {
+    public void testDeleteCommentById_whenValidId_shouldDeleteCommentAndReturnString() throws Exception {
 
 
         User user = userRepository.save(new User("username", "mail"));
         Post post = postRepository.save(new Post("title", "body", PostTags.HISTORY, user));
-
-        Comment comment = commentRepository.save(new Comment("deneme", user, post));
+        Comment comment = commentRepository.save(new Comment("comment", user, post));
 
         this.mockMvc.perform(delete(url + comment.getCid())
                 .contentType(MediaType.APPLICATION_JSON_VALUE))

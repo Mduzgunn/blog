@@ -14,11 +14,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.time.Clock;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
 
 class PostServiceTest extends TestSupport {
 
@@ -34,6 +36,7 @@ class PostServiceTest extends TestSupport {
         postRepository = Mockito.mock(PostRepository.class);
         postDtoConverter = Mockito.mock(PostDtoConverter.class);
         userService = Mockito.mock(UserService.class);
+        postDtoConverter = mock(PostDtoConverter.class);
 
         postService = new PostService(postRepository,postDtoConverter, userService);
     }
@@ -89,16 +92,14 @@ class PostServiceTest extends TestSupport {
         PostDto postDto =generatePostDto();
         User user = generateUser();
 
-
-        Mockito.when(userService.findUserById("id")).thenReturn(user);
+        Mockito.when(userService.findUserById("uid")).thenReturn(user);
         Mockito.when(postDtoConverter.convertToPostDto(postRepository.save(post))).thenReturn(postDto);
-        Mockito.when(postRepository.save(post)).thenReturn(post);
 
         PostDto result = postService.createPost(createPostRequest);
 
         assertEquals(postDto, result);
 
-        Mockito.verify(userService).findUserById("id");
+        Mockito.verify(userService).findUserById("uid");
         Mockito.verify(postDtoConverter).convertToPostDto(postRepository.save(post));
     }
 
@@ -107,11 +108,11 @@ class PostServiceTest extends TestSupport {
 
         CreatePostRequest createPostRequest = generateCreatePostRequest();
 
-        Mockito.when(userService.findUserById("id")).thenThrow(UserNotFoundException.class);
+        Mockito.when(userService.findUserById("uid")).thenThrow(UserNotFoundException.class);
 
         assertThrows(UserNotFoundException.class, () -> postService.createPost(createPostRequest));
 
-        Mockito.verify(userService).findUserById("id");
+        Mockito.verify(userService).findUserById("uid");
         Mockito.verifyNoInteractions(postDtoConverter);
         Mockito.verifyNoInteractions(postRepository);
     }

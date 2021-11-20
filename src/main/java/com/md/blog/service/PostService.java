@@ -10,6 +10,8 @@ import com.md.blog.model.User;
 import com.md.blog.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,13 +22,14 @@ public class PostService {
     private final PostDtoConverter postDtoConverter;
     private final UserService userService;
 
+
+
     public PostService(PostRepository postRepository,
                        PostDtoConverter postDtoConverter,
                        UserService userService) {
         this.postRepository = postRepository;
         this.postDtoConverter = postDtoConverter;
         this.userService = userService;
-
     }
 
     protected Post findPostById(String id) {
@@ -49,7 +52,6 @@ public class PostService {
 
     public PostDto createPost(CreatePostRequest createPostRequest) {
         User user =userService.findUserById(createPostRequest.getUid());
-
         Post post = new Post(
                 createPostRequest.getTitle(),
                 createPostRequest.getBody(),
@@ -64,7 +66,6 @@ public class PostService {
         postRepository.deleteById(pid);
         return "post deleted successfully "+pid;
     }
-
     public PostDto updatePost(String pid, UpdatePostRequest updatePostRequest) {
         Post post = findPostById(pid);
 
@@ -74,11 +75,10 @@ public class PostService {
                 updatePostRequest.getBody(),
                 updatePostRequest.getPostTags(),
                 post.getCreationDate(),
-                LocalDateTime.now(),
+                post.getUpdatedDate(),
                 post.getUser(),
                 post.getComment()
         );
         return postDtoConverter.convertToPostDto(postRepository.save(updatedPost));
     }
-
 }

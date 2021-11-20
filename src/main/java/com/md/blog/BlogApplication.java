@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 
+import java.time.Clock;
+
 
 @SpringBootApplication
 public class BlogApplication {
@@ -23,5 +25,10 @@ public class BlogApplication {
                         .version("1.0")
                         .description("This is simply a blog application\n")
                         .license(new License().name("MD Blog API Licence")));
+    }
+
+    @Bean
+    public Clock clock() {
+        return Clock.systemUTC();
     }
 }

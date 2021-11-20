@@ -83,7 +83,6 @@ class UserServiceTest extends TestSupport {
     void testCreateUser_whenGetValidRequest_itShouldReturnUserDto() {
         CreateUserRequest createUserRequest = generateCreateUserRequest();
         User expectedUser = generateUser();
-        User notId=nott();
         UserDto expectedUserDto = generateUserDto();
 
         Mockito.when(userRepository.save(expectedUser)).thenReturn(expectedUser);

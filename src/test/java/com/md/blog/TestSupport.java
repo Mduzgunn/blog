@@ -1,31 +1,39 @@
 package com.md.blog;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.md.blog.dto.*;
 import com.md.blog.dto.requests.*;
 import com.md.blog.model.Comment;
 import com.md.blog.model.Post;
 import com.md.blog.model.PostTags;
 import com.md.blog.model.User;
+import org.junit.jupiter.api.BeforeEach;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
 public class TestSupport {
 
-    private LocalDateTime date=LocalDateTime.of(2021, 11, 11, 11, 11);
+    public Instant getCurrentInstant() {
+        String instantExpected = "2021-06-15T10:15:30Z";
+        Clock clock = Clock.fixed(Instant.parse(instantExpected), Clock.systemDefaultZone().getZone());
+
+        return Instant.now(clock);
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return LocalDateTime.ofInstant(getCurrentInstant(), Clock.systemDefaultZone().getZone());
+    }
+    //private LocalDateTime date=LocalDateTime.of(2021, 11, 11, 11, 11);
 
     public User generateUser() {
         return new User(
-
-                "username",
-                "email"
-        );
-    }
-
-    public User nott() {
-        return new User(
-                "",
+                "uid",
                 "username",
                 "email"
         );
@@ -36,7 +44,7 @@ public class TestSupport {
                 "uid",
                 "username",
                 "email",
-                date
+                getLocalDateTime()
         );
     }
 
@@ -68,8 +76,8 @@ public class TestSupport {
                 from.getUid(),
                 updateUserRequest.getUsername(),
                 updateUserRequest.getEmail(),
-                date,
-                date,
+                getLocalDateTime(),
+                getLocalDateTime(),
                 from.getPost(),
                 from.getComment()
         );
@@ -87,6 +95,20 @@ public class TestSupport {
         );
     }
 
+//    public Post generatePost() {
+//        User user = generateUser();
+//        return new Post(
+//                "pid",
+//                "title",
+//                "body",
+//                "PostTags.CODE",
+//                "",
+//                ""
+//                "user"
+//        );
+//    }
+
+
     public PostDto generatePostDto() {
         UserDto userDto = generateUserDto();
         return new PostDto(
@@ -94,8 +116,8 @@ public class TestSupport {
                 "title",
                 "body",
                 PostTags.CODE,
-                date,
-                date,
+                getLocalDateTime(),
+                getLocalDateTime(),
                 userDto,
                 Collections.emptyList()
         );
@@ -132,8 +154,8 @@ public class TestSupport {
                 request.getTitle(),
                 request.getBody(),
                 request.getPostTags(),
-                date,
-                date,
+                getLocalDateTime(),
+                getLocalDateTime(),
                 from.getUser(),
                 from.getComment()
         );
@@ -156,7 +178,7 @@ public class TestSupport {
         return new CommentDto(
                 "cid",
                 "comment",
-                date,
+                getLocalDateTime(),
                 userDto
         );
     }
