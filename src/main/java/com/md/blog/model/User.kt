@@ -1,9 +1,9 @@
 package com.md.blog.model
 
-import org.hibernate.annotations.GenericGenerator;
-import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.*;
+import org.hibernate.Hibernate
+import org.hibernate.annotations.GenericGenerator
+import java.time.LocalDateTime
+import javax.persistence.*
 
 @Entity
 @Table(name = "blog_user")
@@ -15,48 +15,27 @@ data class User @JvmOverloads constructor(
         val username: String,
         val email: String,
 
-        val creationDate: LocalDateTime= LocalDateTime.now(),
+        val creationDate: LocalDateTime = LocalDateTime.now(),
 
         val updatedDate: LocalDateTime = LocalDateTime.now(),
 
         @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",cascade = [CascadeType.ALL])
-        val post: List<Post>?=ArrayList() ,
+        val post: List<Post>?=ArrayList(),
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = [CascadeType.ALL]) //
         val comment: List<Comment>?=ArrayList(),
 
 
-        ) {
+        )
+    {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+            other as User
 
-    //    constructor(username: String,email: String):this(
-//            "",
-//            username=username,
-//            email = email,
-//            creationDate = LocalDateTime.now(),
-//            post = listOf(),
-//            comment= listOf()
-//    )
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+            return uid != null && uid == other.uid
+        }
 
-        other as User
-
-        if (uid != other.uid) return false
-        if (username != other.username) return false
-        if (email != other.email) return false
-        if (post != other.post) return false
-        if (comment != other.comment) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = uid?.hashCode() ?: 0
-        result = 31 * result + username.hashCode()
-        result = 31 * result + email.hashCode()
-        result = 31 * result + post.hashCode()
-        result = 31 * result + comment.hashCode()
-        return result
-    }
+        override fun hashCode(): Int = javaClass.hashCode()
 }
+

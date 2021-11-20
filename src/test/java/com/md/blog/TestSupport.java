@@ -33,7 +33,7 @@ public class TestSupport {
 
     public User generateUser() {
         return new User(
-                "uid",
+
                 "username",
                 "email"
         );
