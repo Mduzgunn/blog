@@ -93,6 +93,7 @@ class UserServiceTest extends TestSupport {
 
         Assertions.assertEquals(expectedUserDto, result);
 
+        Mockito.verify(userRepository).save(expectedUser);
         Mockito.verify(userDtoConverter).convertToUserDto(userRepository.save(expectedUser));
     }
 
