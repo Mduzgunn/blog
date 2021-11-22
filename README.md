@@ -61,7 +61,7 @@ Proje dizinine gidin
 Docker image oluşturun
 
 ```bash
-  docker build -t bootcamp-blog .
+  docker build -t blog .
 ```
 
 Docker containerları çalıştırın
