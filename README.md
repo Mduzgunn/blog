@@ -18,7 +18,7 @@ Kod Gemisi ve FolksDev beraberliğinde gerçekleştirilen bootcampe ait Spring B
 - Hamcrest
 ## Run It On Your Computer
 
-## Maven
+## Project Setup With Maven
 
 Projeyi klonlayın
 
@@ -44,8 +44,37 @@ Projeyi çalıştırın
   mvn spring-boot:run
 ```
 
-## Docker
+## Project Setup With Docker
 
+Projeyi klonlayın
+
+```bash
+  git clone https://github.com/Mduzgunn/blog
+```
+
+Proje dizinine gidin
+
+```bash
+  cd blog
+```
+
+Docker image oluşturun
+
+```bash
+  docker build -t bootcamp-blog .
+```
+
+Docker containerları çalıştırın
+
+```bash
+  docker-compose up
+```
+
+http://localhost:9090 base url adresinin sonuna görmek istediğiniz API url'ini giriniz
+
+```bash
+  http://localhost:9090/v1/user
+```
   
 ## HTTP Methods and Functions 
 ### USER
@@ -186,7 +215,7 @@ Spring HATEOAS
 
 
 
-## Ekran Görüntüleri
+## Görseller
 
 ##### Database Schemes
 
@@ -201,4 +230,9 @@ Spring HATEOAS
 
 ![](src/main/resources/static/images/coverage-report.png )
 
+##### Docker images and container
+![](src/main/resources/static/images/docker-images.png )
+
+
+![](src/main/resources/static/images/docker-container.png )
   
