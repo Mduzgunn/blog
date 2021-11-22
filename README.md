@@ -16,9 +16,10 @@ Kod Gemisi ve FolksDev beraberliğinde gerçekleştirilen bootcampe ait Spring B
 - Docker
 - JUnit 5
 - Hamcrest
+---
 ## Run It On Your Computer
 
-## Project Setup With Maven
+### Project Setup With Maven
 
 Projeyi klonlayın
 ```bash
@@ -40,7 +41,7 @@ Projeyi çalıştırın
   mvn spring-boot:run
 ```
 
-## Project Setup With Docker
+### Project Setup With Docker
 
 Projeyi klonlayın
 ```bash
@@ -66,7 +67,14 @@ http://localhost:9090 base url adresinin sonuna görmek istediğiniz API url'ini
 ```bash
   http://localhost:9090/v1/user
 ```
+  ---
   
+#### OpenAPI-Swagger
+
+Proje ayağa kalktıktan sonra `http://localhost:8080/swagger-ui.html` adresinden swagger ile GET, POST, PUT, DELETE gibi isteklerde bulunabilirsiniz
+
+---
+
 ## HTTP Methods and Functions 
 ### USER
 ```diff
@@ -203,8 +211,7 @@ Spring HATEOAS
     }
 ]
 ```
-
-
+---
 
 ## Görseller
 
