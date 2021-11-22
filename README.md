@@ -21,25 +21,21 @@ Kod Gemisi ve FolksDev beraberliğinde gerçekleştirilen bootcampe ait Spring B
 ## Project Setup With Maven
 
 Projeyi klonlayın
-
 ```bash
   git clone https://github.com/Mduzgunn/blog
 ```
 
 Proje dizinine gidin
-
 ```bash
   cd blog
 ```
 
 Gerekli paketleri yükleyin
-
 ```bash
   mvn clean install
 ```
 
 Projeyi çalıştırın
-
 ```bash
   mvn spring-boot:run
 ```
@@ -47,31 +43,26 @@ Projeyi çalıştırın
 ## Project Setup With Docker
 
 Projeyi klonlayın
-
 ```bash
   git clone https://github.com/Mduzgunn/blog
 ```
 
 Proje dizinine gidin
-
 ```bash
   cd blog
 ```
 
 Docker image oluşturun
-
 ```bash
   docker build -t blog .
 ```
 
 Docker containerları çalıştırın
-
 ```bash
   docker-compose up
 ```
 
 http://localhost:9090 base url adresinin sonuna görmek istediğiniz API url'ini giriniz
-
 ```bash
   http://localhost:9090/v1/user
 ```
