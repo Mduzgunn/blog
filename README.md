@@ -69,7 +69,7 @@ http://localhost:9090 base url adresinin sonuna görmek istediğiniz API url'ini
 ```
   ---
   
-#### OpenAPI-Swagger
+### [Open API-Swagger (go live)](https://bit.ly/3cKrFkv)
 
 Proje ayağa kalktıktan sonra `http://localhost:8080/swagger-ui.html` adresinden swagger ile GET, POST, PUT, DELETE gibi isteklerde bulunabilirsiniz
 

@@ -28,8 +28,8 @@ public class BlogApplication {
                                 .name("Melih Düzgün")
                                 .url("https://github.com/Mduzgunn/blog")
                                 .email("aduzgun99@gmail.com.tr"))
-                        .description("This is simply a blog application\n")
-                        .license(new License().name("MD Blog API Licence")));
+                        .description("This is simply a blog application\n"));
+                       // .license(new License().name("MD Blog API Licence")));
     }
 
     @Bean
