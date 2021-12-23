@@ -1,7 +1,7 @@
 
 # Spring Boot Blog App
 
-Kod Gemisi ve FolksDev beraberliğinde gerçekleştirilen bootcampe ait Spring Boot uygulaması
+Spring boot kullanılarak yazılmış film uygulaması 
 ## Teknolojiler
 
 - Java 11
