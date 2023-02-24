@@ -1,7 +1,7 @@
 
 # Spring Boot Blog App
 
-Spring boot kullanılarak yazılmış film uygulaması 
+Spring boot kullanılarak yazılmış blog uygulaması 
 ## Teknolojiler
 
 - Java 11
